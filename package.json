@@ -1,0 +1,42 @@
+{
+  "name": "swiftdrop-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch ./src/index.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node ./dist",
+    "postinstall": "prisma generate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaylorOkis/swiftdrop-backend.git"
+  },
+  "keywords": [
+    "Real-time Tracking",
+    "Logistics & Delivery"
+  ],
+  "author": "Tamunokipirite Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TaylorOkis/swiftdrop-backend/issues"
+  },
+  "homepage": "https://github.com/TaylorOkis/swiftdrop-backend#readme",
+  "description": "A simple delivery Saas app",
+  "type": "module",
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
+    "prisma": "^6.14.0",
+    "tsc-alias": "^1.8.16",
+    "tsx": "^4.20.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.14.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  }
+}
