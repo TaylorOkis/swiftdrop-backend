@@ -16,9 +16,11 @@ datasource db {
 
 model Company {
   id             String     @id @default(uuid())
-  companyName    String?    @unique
+  name           String     @unique
   email          String     @unique
-  password       String  
+  address        String
+  color          String[] 
+  logo           String?  
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 }
