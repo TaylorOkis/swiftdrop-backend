@@ -5,10 +5,10 @@ import {
   deleteCompany,
 } from "@/controllers/company.controller.js";
 
-const mgntRouter = express.Router();
+const companyRouter = express.Router();
 
-mgntRouter.post("/create", createCompany);
-mgntRouter.post("/update", updateCompany);
-mgntRouter.get("/delete", deleteCompany);
+companyRouter.route("/").post(createCompany);
 
-export default mgntRouter;
+companyRouter.route("/:id").patch(updateCompany).delete(deleteCompany);
+
+export default companyRouter;

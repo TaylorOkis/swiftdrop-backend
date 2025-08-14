@@ -1,15 +1,16 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import errorHandler from "@/middlewares/error-handler.js";
-import notFound from "./middlewares/not-found.js";
 import { StatusCodes } from "http-status-codes";
+
+import companyRouter from "@/routes/company.routes.js";
+import employeeRouter from "@/routes/employee.routes.js";
+import notFound from "@/middlewares/not-found.js";
+import errorHandler from "./middlewares/error-handler.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-
-app.use(asyncWrpper());
 
 app.get("/", (req: Request, res: Response) => {
   res
@@ -17,10 +18,10 @@ app.get("/", (req: Request, res: Response) => {
     .send("Hello, Welcome! This API is running perfectly.");
 });
 
+app.use("/company", companyRouter);
+app.use("/employee", employeeRouter);
+
 app.use(notFound);
 app.use(errorHandler);
 
 export default app;
-function asyncWrpper(): any {
-  throw new Error("Function not implemented.");
-}
