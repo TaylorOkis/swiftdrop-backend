@@ -9,21 +9,22 @@ datasource db {
 }
 
 model Company {
-  id             String     @id @default(uuid())
-  name           String     @unique
-  email          String     @unique
+  id             String      @id @default(uuid())
+  name           String      @unique
+  email          String      @unique
   address        String
   color          String[] 
   logo           String?  
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
 
-  employees      Employee[]
+  employees      Employee[]  
 }
 
 model Employee {
-  id          String      @id  @default(uuid())
-  username    String      
+  id          String          @id  @default(uuid())
+  username    String?
+  password    String      
   firstname   String
   middlename  String?
   lastname    String
@@ -31,12 +32,12 @@ model Employee {
   phone       String
   company_id  String      
   role        Role        
-  status      UserStatus  @default(INACTIVE)
+  status      EmployeeStatus  @default(ACTIVE)
   image       String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
-  company     Company     @relation(fields: [company_id], references: [id])
+  company     Company         @relation(fields: [company_id], references: [id])
 }
 
 enum Role {
@@ -45,7 +46,7 @@ enum Role {
   DISPATCHER
 }
 
-enum UserStatus {
+enum EmployeeStatus {
   ACTIVE
   INACTIVE
 }
