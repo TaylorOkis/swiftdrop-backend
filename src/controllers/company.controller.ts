@@ -78,11 +78,29 @@ const createCompany = asyncWrapper(async (req: Request, res: Response) => {
     .json({ status: "success", message: "Company Created Successfully" });
 });
 
-const getAllCompanies = asyncWrapper(async (req: Request, res: Response) => {});
+const getAllCompanies = asyncWrapper(async (req: Request, res: Response) => {
+  const company = await db.company.findMany({
+    orderBy: { createdAt: "desc" },
+  });
 
-const getSingleCompany = asyncWrapper(
-  async (req: Request, res: Response) => {}
-);
+  res
+    .status(StatusCodes.OK)
+    .json({ status: "success", count: company.length, data: company });
+});
+
+const getSingleCompany = asyncWrapper(async (req: Request, res: Response) => {
+  const { id: companyId } = req.params;
+
+  const existingCompany = await db.company.findUnique({
+    where: { id: companyId },
+  });
+
+  if (!existingCompany) {
+    throw new NotFoundError("Company not Found");
+  }
+
+  res.status(StatusCodes.OK).json({ status: "success", data: existingCompany });
+});
 
 const updateCompany = asyncWrapper(async (req: Request, res: Response) => {});
 
@@ -94,7 +112,7 @@ const deleteCompany = asyncWrapper(async (req: Request, res: Response) => {
     throw new NotFoundError("Company not Found");
   }
 
-  await db.company.delete({ where: companyId });
+  await db.company.delete({ where: { id: companyId } });
 
   res
     .status(StatusCodes.OK)

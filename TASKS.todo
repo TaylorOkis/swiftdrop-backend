@@ -1,0 +1,3 @@
+// TODO: Implement business logic that only an ADMIN associated with a coompany or SuperAdmin can get single company details.
+// TODO: Implement business logic that only a superAdmin can get all companies details and delete a company.
+// TODO: Implement update company business logic

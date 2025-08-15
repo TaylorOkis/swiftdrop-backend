@@ -37,7 +37,7 @@ model Employee {
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
-  company     Company         @relation(fields: [company_id], references: [id])
+  company     Company         @relation(fields: [company_id], references: [id], onDelete: Cascade)
 }
 
 enum Role {
