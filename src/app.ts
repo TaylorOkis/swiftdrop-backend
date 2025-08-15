@@ -5,7 +5,8 @@ import { StatusCodes } from "http-status-codes";
 import companyRouter from "@/routes/company.routes.js";
 import employeeRouter from "@/routes/employee.routes.js";
 import notFound from "@/middlewares/not-found.js";
-import errorHandler from "./middlewares/error-handler.js";
+import errorHandler from "@/middlewares/error-handler.js";
+import employeeAuthRouter from "@/routes/auth/auth.employee.routes.js";
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.get("/", (req: Request, res: Response) => {
     .status(StatusCodes.CREATED)
     .send("Hello, Welcome! This API is running perfectly.");
 });
-
+app.use("/auth/employee", employeeAuthRouter);
 app.use("/company", companyRouter);
 app.use("/employee", employeeRouter);
 
