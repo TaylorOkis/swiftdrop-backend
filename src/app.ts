@@ -7,6 +7,7 @@ import employeeRouter from "@/routes/employee.routes.js";
 import notFound from "@/middlewares/not-found.js";
 import errorHandler from "@/middlewares/error-handler.js";
 import employeeAuthRouter from "@/routes/auth/auth.employee.routes.js";
+import orderRouter from "@/routes/order.routes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/auth/employee", employeeAuthRouter);
 app.use("/company", companyRouter);
 app.use("/employee", employeeRouter);
+app.use("/order", orderRouter);
 
 app.use(notFound);
 app.use(errorHandler);
