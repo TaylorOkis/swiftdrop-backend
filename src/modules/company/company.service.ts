@@ -3,6 +3,7 @@ import { CreateCompanyDTO } from "../company/company.dtos.js";
 import { CompanyRepository } from "../company/company.repository.js";
 import { PasswordManager } from "@/core/utils/hash.util.js";
 import { CreateEmployeeDTO } from "../employee/employee.dtos.js";
+import excludePassword from "@/core/utils/excludePassword.util.js";
 
 export class CompanyService {
   private companyRepository = new CompanyRepository();
@@ -30,9 +31,7 @@ export class CompanyService {
 
     const companyData = {
       ...company,
-      employees: company.employees.map(
-        ({ password, ...employeeData }: CreateEmployeeDTO) => employeeData
-      ),
+      employees: company.employees.map(excludePassword),
     };
 
     return companyData;

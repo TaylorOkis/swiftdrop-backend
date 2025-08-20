@@ -1,6 +1,6 @@
 // TODO: Implement business logic that only an ADMIN associated with a coompany or SuperAdmin can get single company details.
 // TODO: Implement business logic that only a superAdmin can get all companies details and delete a company.
 // TODO: Implement Update company business logic.
-// TODO: Business logic where if a user request to getAllEmployees or getSingleEmployee data it acts difference for SuperAdmin of the system and Admin of a company.
+// TODO: Business logic where if a user request to getAllEmployees or getSingleEmployee data it acts different for SuperAdmin of the system and Admin of a company.
 // TODO: Check if an Admin is associated with a company before deleting Employee's record.
 // TODO: SuperAdmin should not be able to delete any Employee's data / account.
