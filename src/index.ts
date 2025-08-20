@@ -8,7 +8,7 @@ const start = () => {
       console.log(`App is running on port ${PORT}...`);
     });
   } catch (error) {
-    console.log(`An error occurred while starting app\n ${error}...`);
+    console.log(`An error occurred while starting app\n ${error}`);
   }
 };
 
