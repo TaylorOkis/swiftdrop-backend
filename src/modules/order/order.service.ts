@@ -43,5 +43,7 @@ export class OrderService {
     }
 
     await this.orderRepository.delete(order_id);
+
+    return "success";
   }
 }
