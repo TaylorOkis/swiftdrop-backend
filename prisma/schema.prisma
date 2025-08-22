@@ -19,6 +19,7 @@ model Company {
   updatedAt      DateTime    @updatedAt
 
   employees      Employee[]  
+  orders         Order[]
 }
 
 model Employee {
@@ -37,7 +38,51 @@ model Employee {
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
+  drivers     Driver[]
+  orders      Order[]
   company     Company         @relation(fields: [company_id], references: [id], onDelete: Cascade)
+
+  @@index([company_id])
+}
+
+
+model Driver {
+  id                      String        @id    @default(uuid())
+  employee_id             String        @unique
+  plate_number            String
+  guarantor_name          String
+  guarantor_phone_number  String
+  guarantor_address       String
+  trip_status             TripStatus    @default(AVAILABLE)
+
+  orders                  Order[]
+  employee                Employee      @relation(fields: [employee_id], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id                     String       @id  @default(uuid())
+  sender_name            String
+  sender_address         String
+  sender_phone_number    String
+  receiver_name          String
+  receiver_address       String
+  receiver_phone_number  String
+  delivery_class         String
+  item_class             String
+  driver_note            String?
+  status                 OrderStatus  @default(PENDING)
+  driver_id              String?
+  created_by             String?
+  company_id             String
+  createdAt              DateTime     @default(now())
+  updatedAt              DateTime     @updatedAt
+
+  driver                 Driver?      @relation(fields: [driver_id], references: [id], onDelete:  SetNull)
+  dispatcher             Employee?    @relation(fields: [created_by], references: [id], onDelete: SetNull)
+  company                Company      @relation(fields: [company_id], references: [id], onDelete: Cascade)
+
+  @@index([company_id])
+  @@index([status])
 }
 
 enum Role {
@@ -49,4 +94,18 @@ enum Role {
 enum EmployeeStatus {
   ACTIVE
   INACTIVE
+}
+
+enum TripStatus {
+  AVAILABLE
+  ON_TRIP
+  OFFLINE
+}
+
+enum OrderStatus {
+  PENDING
+  ASSIGNED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
 }
