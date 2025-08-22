@@ -3,7 +3,7 @@ import { CreateCompanyDTO } from "./company.dtos.js";
 
 export class CompanyRepository {
   async create(createCompanyDTO: CreateCompanyDTO) {
-    return db.company.create({
+    return await db.company.create({
       data: {
         name: createCompanyDTO.name,
         email: createCompanyDTO.email,
@@ -32,31 +32,31 @@ export class CompanyRepository {
   }
 
   async getAll() {
-    return db.company.findMany({
+    return await db.company.findMany({
       orderBy: { updatedAt: "desc" },
     });
   }
 
   async findByEmail(email: string) {
-    return db.compay.findUnique({
+    return await db.compay.findUnique({
       where: { email },
     });
   }
 
   async findById(id: string) {
-    return db.company.findUnique({
+    return await db.company.findUnique({
       where: { id },
     });
   }
 
   async findByName(name: string) {
-    return db.company.findUnique({
+    return await db.company.findUnique({
       where: { name },
     });
   }
 
   async delete(id: string) {
-    return db.company.delete({
+    return await db.company.delete({
       where: { id },
     });
   }

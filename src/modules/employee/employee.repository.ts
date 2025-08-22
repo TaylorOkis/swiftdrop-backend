@@ -3,26 +3,26 @@ import { CreateEmployeeDTO } from "./employee.dtos.js";
 
 export class EmployeeRepository {
   async create(createEmployeeDTO: CreateEmployeeDTO) {
-    return db.employee.create({
-      data: { createEmployeeDTO },
+    return await db.employee.create({
+      data: createEmployeeDTO,
     });
   }
 
   async getAll() {
-    return db.employee.findMany({
+    return await db.employee.findMany({
       orderBy: { updatedAt: "desc" },
     });
   }
 
   async getAllForCompany(company_id: string) {
-    return db.employee.findMany({
+    return await db.employee.findMany({
       where: { company_id },
       orderBy: { updatedAt: "desc" },
     });
   }
 
   async findById(id: string) {
-    return db.employee.findUnique({
+    return await db.employee.findUnique({
       where: { id },
       include: { company: true },
     });
@@ -33,7 +33,7 @@ export class EmployeeRepository {
     phone: string,
     email: string
   ) {
-    return db.employee.findFirst({
+    return await db.employee.findFirst({
       where: {
         AND: [
           { company_id: company_id },
@@ -44,7 +44,7 @@ export class EmployeeRepository {
   }
 
   async delete(id: string) {
-    return db.employee.delete({
+    return await db.employee.delete({
       where: { id },
     });
   }
