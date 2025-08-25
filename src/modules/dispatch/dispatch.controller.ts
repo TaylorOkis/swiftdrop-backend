@@ -7,8 +7,10 @@ import { DispatchService } from "./dispatch.service.js";
 export class DispatchController {
   private dispatchService = new DispatchService();
 
-  assignDriver = asyncWrapper((req: Request, res: Response) => {
-    const updatedOrder = this.dispatchService.assignDriverToOrder(req.body);
+  assignDriver = asyncWrapper(async (req: Request, res: Response) => {
+    const updatedOrder = await this.dispatchService.assignDriverToOrder(
+      req.body
+    );
     res.status(StatusCodes.OK).json({
       status: "success",
       message: "Driver assigned Successfully",
@@ -16,8 +18,8 @@ export class DispatchController {
     });
   });
 
-  updateOrderStatus = asyncWrapper((req: Request, res: Response) => {
-    const updatedOrder = this.dispatchService.updateOrderStatus(req.body);
+  updateOrderStatus = asyncWrapper(async (req: Request, res: Response) => {
+    const updatedOrder = await this.dispatchService.updateOrderStatus(req.body);
     res.status(StatusCodes.OK).json({
       status: "success",
       message: "Status Updated Successfully",
