@@ -8,7 +8,7 @@ export class CreateOrderDTO {
   delivery_class!: string;
   item_class!: string;
   driver_note?: string;
-  status!: string;
+  status!: "PENDING" | "ASSIGNED" | "IN_TRANSIT" | "DELIVERED" | "CANCELLED";
   driver_id?: string;
   created_by!: string;
   company_id!: string;

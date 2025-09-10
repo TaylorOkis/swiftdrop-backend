@@ -9,7 +9,7 @@ export class OrderRepository {
 
   async getAll() {
     return await db.order.findMany({
-      orderBy: { updateAt: "desc" },
+      orderBy: { updatedAt: "desc" },
     });
   }
 

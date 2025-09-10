@@ -27,9 +27,9 @@ export class DriverRepository {
 
   async updateStatus(tripStatusDTO: UpdateTripStatusDTO) {
     return await db.driver.update({
-      where: { driver_id: tripStatusDTO.driver_id },
+      where: { id: tripStatusDTO.driver_id },
       data: { trip_status: tripStatusDTO.trip_status },
-      select: { driver_id: true, trip_status: true },
+      select: { id: true, trip_status: true },
     });
   }
 }

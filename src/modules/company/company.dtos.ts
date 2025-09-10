@@ -4,7 +4,7 @@ export class CreateCompanyDTO {
   name!: string;
   email!: string;
   address!: string;
-  color?: string;
+  color?: [];
   logo?: string;
   employee!: CreateEmployeeDTO;
 }

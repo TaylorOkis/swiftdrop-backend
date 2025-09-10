@@ -5,9 +5,9 @@ export class CreateEmployeeDTO {
   middlename?: string;
   lastname!: string;
   email!: string;
-  role?: string;
-  status?: string;
+  role!: "ADMIN" | "DRIVER" | "DISPATCHER";
+  status?: "ACTIVE" | "INACTIVE";
   phone!: string;
   image?: string;
-  company_id?: string;
+  company_id!: string;
 }

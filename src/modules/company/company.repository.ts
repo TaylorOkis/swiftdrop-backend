@@ -38,7 +38,7 @@ export class CompanyRepository {
   }
 
   async findByEmail(email: string) {
-    return await db.compay.findUnique({
+    return await db.company.findUnique({
       where: { email },
     });
   }
