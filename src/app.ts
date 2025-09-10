@@ -8,12 +8,34 @@ import v1Router from "./routes/v1/index.js";
 import notFound from "./core/middlewares/notFound.middleware.js";
 import errorMiddleware from "./core/middlewares/error.middleware.js";
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "http://localhost:5501",
+  "http://127.0.0.1:5501",
+  "http://localhost:5000",
+  "http://127.0.0.1:5000",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+];
+
+const corsOptions = {
+  origin: function (origin: any, callback: any) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
+const io = new Server(server, { cors: corsOptions });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Websocket
 const usersConnected = new Map();
@@ -57,7 +79,7 @@ io.on("connection", (socket) => {
   // Receive and Emit Driver location/ETA
   socket.on("location-update", async ({ driverId, lat, lng }) => {
     // Emit location to admin and dispatcher
-    io.in("admnin-room").emit("driver-location", { driverId, lat, lng });
+    io.in("admin-room").emit("driver-location", { driverId, lat, lng });
 
     // Emit ETA to customers who are connected (online)
   });
