@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
         case "CUSTOMER":
           usersConnected.set(userId, socket.id);
           break;
-        case "default":
+        default:
           throw new Error("Invalid role");
       }
     }
@@ -85,6 +85,14 @@ io.on("connection", (socket) => {
   });
 
   // Disconnect User
+  socket.on("disconnect", async () => {
+    for (const [userId, socketId] of usersConnected.entries()) {
+      if (socketId === socket.id) {
+        usersConnected.delete(userId);
+        break;
+      }
+    }
+  });
 });
 
 app.get("/health", (req: Request, res: Response) => {
