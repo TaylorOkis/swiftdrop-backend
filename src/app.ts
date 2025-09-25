@@ -9,7 +9,7 @@ import notFound from "./core/middlewares/notFound.middleware.js";
 import errorMiddleware from "./core/middlewares/error.middleware.js";
 import registerSocketHandlers from "./core/sockets/index.js";
 
-const allowedOrigins = process.env.ALLOWED_ORGINS?.split(",") || [];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(",") || [];
 
 const corsOptions = {
   origin: function (origin: any, callback: any) {
