@@ -75,6 +75,9 @@ model Order {
   driver_id              String?
   created_by             String?
   company_id             String
+  //TODO: Handle Customer and Reference ID effectively
+  customer_id            String?
+  reference_id           String?
   createdAt              DateTime     @default(now())
   updatedAt              DateTime     @updatedAt
 
