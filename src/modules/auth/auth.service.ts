@@ -30,7 +30,7 @@ export class AuthService {
     const userToken = {
       id: existingEmployee.id,
       role: existingEmployee.role,
-      company_id: existingEmployee.company_id,
+      companyId: existingEmployee.company_id,
     };
 
     return userToken;

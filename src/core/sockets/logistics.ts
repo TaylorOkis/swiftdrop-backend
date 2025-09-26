@@ -1,37 +1,35 @@
 import { Server, Socket } from "socket.io";
 import { TrackService } from "@/modules/track/index.js";
 import calculateETA from "../utils/eta.util.js";
+import { LocationPayload, UserPayload } from "../types/types.js";
 
 const trackService = new TrackService();
 const logisticsNamespace = async (io: Server, socket: Socket) => {
-  const user = socket.data.user;
-  socket.on("driver:location:update", async (payload: any) => {
+  const user = socket.data.user as UserPayload;
+  socket.on("driver:location:update", async (payload: LocationPayload) => {
     try {
-      if (!user || user.role !== "driver") {
+      if (!user || user.role !== "DRIVER") {
         socket.emit("error", { code: "FORBIDDEN", message: "Drivers only" });
         return;
       }
 
       const { orderId, lat, lng, timestamp } = payload || {};
-      if (!orderId || typeof lat !== "number" || typeof lng !== "number") {
+      if (!orderId) {
         socket.emit("error", { code: "INVALID_PAYLOAD" });
         return;
       }
       const location = {
-        driverId: user.userId,
+        driverId: user.id,
         lat,
         lng,
         timestamp: timestamp || Date.now(),
       };
 
       if (user.companyId) {
-        io.to(`admin:company:${user.companyId}`).emit(
-          "driver-location",
-          location
-        );
+        io.to(`company:${user.companyId}`).emit("driver-location", location);
       }
 
-      const orders = await trackService.getOrdersForDriver(user.userId);
+      const orders = await trackService.getOrdersForDriver(user.id);
 
       for (const order of orders) {
         // Only compute ETA if customer is connected to socket server

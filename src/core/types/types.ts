@@ -1,9 +1,16 @@
 import { Request } from "express";
 
-type UserPayload = {
+interface UserPayload {
   id: string;
   role: string;
-  company_id: string;
+  companyId: string;
+}
+
+type LocationPayload = {
+  orderId: string;
+  lat: number;
+  lng: number;
+  timestamp?: string;
 };
 
 interface CustomRequest extends Request {
@@ -14,4 +21,4 @@ interface CustomRequest extends Request {
   };
 }
 
-export { UserPayload, CustomRequest };
+export { UserPayload, LocationPayload, CustomRequest };

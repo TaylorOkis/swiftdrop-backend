@@ -8,10 +8,4 @@ export class TrackService {
 
     return orders;
   }
-
-  async getReferenceForOrder(orderId: string) {
-    const reference = await this.trackRepository.getOrderReference(orderId);
-
-    return reference;
-  }
 }
