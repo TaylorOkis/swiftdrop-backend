@@ -1,17 +1,24 @@
 import { Router } from "express";
 import { OrderController } from "./order.controller.js";
+import { authorizationPermissions } from "@/core/middlewares/auth.middleware.js";
 
 const orderRouter = Router();
 const orderController = new OrderController();
 
 orderRouter
   .route("/")
-  .get(orderController.getAllOrders)
-  .post(orderController.createOrder);
+  .get(
+    authorizationPermissions("ADMIN", "DISPATCHER"),
+    orderController.getAllOrders
+  )
+  .post(
+    authorizationPermissions("ADMIN", "DISPATCHER"),
+    orderController.createOrder
+  );
 
 orderRouter
   .route("/:id")
   .get(orderController.getSingleOrder)
-  .delete(orderController.deleteOrder);
+  .delete(authorizationPermissions("ADMIN"), orderController.deleteOrder);
 
 export default orderRouter;

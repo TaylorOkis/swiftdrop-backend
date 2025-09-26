@@ -1,4 +1,7 @@
-import { authenticateUser } from "@/core/middlewares/auth.middleware.js";
+import {
+  authenticateUser,
+  authorizationPermissions,
+} from "@/core/middlewares/auth.middleware.js";
 import { authRoutes } from "@/modules/auth/index.js";
 import { companyRoutes } from "@/modules/company/index.js";
 import { dispatchRoutes } from "@/modules/dispatch/index.js";
@@ -13,7 +16,12 @@ v1Router.use("/auth", authRoutes);
 v1Router.use("/company", companyRoutes);
 v1Router.use("/employee", authenticateUser, employeeRoutes);
 v1Router.use("/order", authenticateUser, orderRoutes);
-v1Router.use("/dispatch", authenticateUser, dispatchRoutes);
+v1Router.use(
+  "/dispatch",
+  authenticateUser,
+  authorizationPermissions("ADMIN", "DISPATCHER"),
+  dispatchRoutes
+);
 v1Router.use("/driver", authenticateUser, driverRoutes);
 
 export default v1Router;

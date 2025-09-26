@@ -1,19 +1,34 @@
 import { Router } from "express";
 import { CompanyController } from "./company.controller.js";
-import { authenticateUser } from "@/core/middlewares/auth.middleware.js";
+import {
+  authenticateUser,
+  authorizationPermissions,
+} from "@/core/middlewares/auth.middleware.js";
 
 const companyRouter = Router();
 const companyController = new CompanyController();
 
 companyRouter
   .route("/")
-  .get(authenticateUser, companyController.getAllCompanies)
+  .get(
+    authenticateUser,
+    authorizationPermissions("ADMIN"),
+    companyController.getAllCompanies
+  )
   .post(companyController.createCompany);
 
 companyRouter
   .route("/:id")
   .get(authenticateUser, companyController.getSingleCompany)
-  .patch(authenticateUser, companyController.updateCompany)
-  .delete(authenticateUser, companyController.deleteCompany);
+  .patch(
+    authenticateUser,
+    authorizationPermissions("ADMIN"),
+    companyController.updateCompany
+  )
+  .delete(
+    authenticateUser,
+    authorizationPermissions("ADMIN"),
+    companyController.deleteCompany
+  );
 
 export default companyRouter;

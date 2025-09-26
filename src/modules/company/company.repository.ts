@@ -20,7 +20,7 @@ export class CompanyRepository {
               lastname: createCompanyDTO.employee.lastname,
               email: createCompanyDTO.employee.email,
               role: createCompanyDTO.employee.role,
-              status: createCompanyDTO.employee.status,
+              status: createCompanyDTO.employee.status || "ACTIVE",
               phone: createCompanyDTO.employee.phone,
               image: createCompanyDTO.employee.image,
             },

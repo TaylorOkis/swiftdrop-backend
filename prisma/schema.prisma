@@ -91,6 +91,7 @@ model Order {
 
 enum Role {
   ADMIN
+  SUPERADMIN
   DRIVER
   DISPATCHER
 }

@@ -12,7 +12,6 @@ const authenticateUser = async (
   next: NextFunction
 ) => {
   const token = req.signedCookies.authToken;
-  console.log(`Token: ${token}`);
   if (!token) throw new UnAuthenticatedError("Authentication Failed");
 
   try {
