@@ -1,6 +1,28 @@
 import { Response, NextFunction } from "express";
-import { UnAuthorizedError } from "../errors/error/index.js";
-import { CustomRequest } from "../types/types.js";
+import {
+  UnAuthenticatedError,
+  UnAuthorizedError,
+} from "../errors/error/index.js";
+import { CustomRequest, UserPayload } from "../types/types.js";
+import { verifyToken } from "../utils/jwt.util.js";
+
+const authenticateUser = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.signedCookies.authToken;
+  console.log(`Token: ${token}`);
+  if (!token) throw new UnAuthenticatedError("Authentication Failed");
+
+  try {
+    const payload = verifyToken({ token }) as UserPayload;
+    req.user = payload;
+    next();
+  } catch (error) {
+    throw new UnAuthenticatedError("Authentication Failed");
+  }
+};
 
 const authorizationPermissions = (...roles: any) => {
   return (req: CustomRequest, res: Response, next: NextFunction) => {
@@ -10,4 +32,4 @@ const authorizationPermissions = (...roles: any) => {
   };
 };
 
-export { authorizationPermissions };
+export { authorizationPermissions, authenticateUser };

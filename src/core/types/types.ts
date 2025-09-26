@@ -17,7 +17,7 @@ interface CustomRequest extends Request {
   user?: {
     id: string;
     role: string;
-    company_id: string;
+    companyId: string;
   };
 }
 

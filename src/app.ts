@@ -3,6 +3,7 @@ import cors from "cors";
 import http from "http";
 import { StatusCodes } from "http-status-codes";
 import { Server } from "socket.io";
+import cookieParser from "cookie-parser";
 
 import v1Router from "./routes/v1/index.js";
 import notFound from "./core/middlewares/notFound.middleware.js";
@@ -26,6 +27,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors(corsOptions));
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get("/health", (req: Request, res: Response) => {
   res
